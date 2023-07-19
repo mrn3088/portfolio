@@ -25,6 +25,38 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .send(
+        "service_ynkfzge",
+        "template_4yjfb3j",
+        {
+          from_name: form.name,
+          to_name: "Ruinan Ma",
+          from_email: form.email,
+          to_email: "r7ma3088@gmail.com",
+          message: form.message,
+        },
+        "dBT5wf1bIQf0pEjW_"
+      )
+      .then(
+        () => {
+          setLoading(false);
+          alert("Thank you. I will get back to you ASAP!");
+          setForm({
+            name: "",
+            email: "",
+            message: "",
+          });
+        },
+        (error) => {
+          setLoading(false);
+          console.error(error);
+
+          alert("Ahh, something went wrong. Please try again.");
+        }
+      );
   };
 
   return (
